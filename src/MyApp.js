@@ -17,11 +17,23 @@ function MyApp() {
       setCharacters([...characters, person]);
    }
 
+   async function fetchAll(){
+      try {
+         const response = await axios.get('http://localhost:2000/users');
+         return response.data.users_list;     
+      }
+      catch (error){
+         //We're not handling errors. Just logging into the console.
+         console.log(error); 
+         return false;         
+      }
+   }
+
    useEffect(() => {
       fetchAll().then( result => {
-         if (result) 
+         if (result)
             setCharacters(result);
-      });
+       });
    }, [] );
 
    return (
@@ -30,18 +42,6 @@ function MyApp() {
        <Form handleSubmit={updateList} />
      </div>
    );
-}
-
-async function fetchAll(){
-   try {
-       const response = await axios.get('http://localhost:2000/users');
-       return response.data.users_list;
-   }
-   catch (error){
-      //We're not handling errors. Just logging into console.
-      console.log(error);
-      return false;
-   }
 }
 
 export default MyApp;
