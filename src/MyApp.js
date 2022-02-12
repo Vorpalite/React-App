@@ -32,9 +32,9 @@ function MyApp() {
       }
    }
 
-   async function makePostCall(){
+   async function makePostCall(person){
       try{
-         const response = await axios.post('http://localhost:2000/users');
+         const response = await axios.post('http://localhost:2000/users', person);
          return response;
       } 
       catch(error) {
