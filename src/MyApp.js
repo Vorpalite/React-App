@@ -23,6 +23,13 @@ function MyApp() {
        <Form handleSubmit={updateList} />
      </div>
    );
+
+   useEffect(() => {
+      fetchAll().then( result => {
+         if (result) 
+            setCharacters(result);
+      });
+   }, [] );
 }
 
 async function fetchAll(){
@@ -37,11 +44,6 @@ async function fetchAll(){
    }
 }
 
-useEffect(() => {
-   fetchAll().then( result => {
-      if (result) 
-         setCharacters(result);
-   });
-}, [] );
+
 
 export default MyApp;
