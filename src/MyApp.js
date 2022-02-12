@@ -17,19 +17,19 @@ function MyApp() {
       setCharacters([...characters, person]);
    }
 
-   return (
-     <div className="container">
-       <Table characterData={characters} removeCharacter={removeOneCharacter} />
-       <Form handleSubmit={updateList} />
-     </div>
-   );
-
    useEffect(() => {
       fetchAll().then( result => {
          if (result) 
             setCharacters(result);
       });
    }, [] );
+
+   return (
+     <div className="container">
+       <Table characterData={characters} removeCharacter={removeOneCharacter} />
+       <Form handleSubmit={updateList} />
+     </div>
+   );
 }
 
 async function fetchAll(){
@@ -43,7 +43,5 @@ async function fetchAll(){
       return false;
    }
 }
-
-
 
 export default MyApp;
