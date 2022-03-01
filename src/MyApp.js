@@ -10,13 +10,18 @@ function MyApp() {
       const updated = characters.filter((character, i) => {
          return i !== index
       });
-      setCharacters(updated);
+      makeDeleteCall(characters[index].id).then( result => {
+         if (result && (result.status === 204 || result.status === 404))
+            setCharacters(updated);
+            return result.data;
+      });
    }
 
    function updateList(person) {
       makePostCall(person).then( result => {
          if (result && result.status === 201)
             setCharacters([...characters, person]);
+            return result.data;
       });
    }
 
@@ -40,6 +45,18 @@ function MyApp() {
       catch(error) {
          console.log(error);
          return false;
+      }
+   }
+
+   async function makeDeleteCall(id){
+      try{
+         const response = await axios.delete(`http://localhost:2000/users/${id}`);
+         console.log(`http://localhost:2000/users/${id}`);
+         return response;
+      }
+      catch(error) {
+         console.log(error);
+         return false
       }
    }
 
